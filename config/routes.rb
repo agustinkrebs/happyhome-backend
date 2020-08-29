@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
-  resources :shopping_list_items
-  resources :shopping_lists
-  resources :family_users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  namespace :api do
+    namespace :v1 do
+      resources :shopping_list_items
+      resources :shopping_lists
+      resources :family_users
+    end
+  end
+
+  root to: "home#index"
+
 end
