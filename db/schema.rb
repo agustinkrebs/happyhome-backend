@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_29_173624) do
+ActiveRecord::Schema.define(version: 2020_08_29_173740) do
 
   create_table "family_users", force: :cascade do |t|
     t.string "name"
@@ -18,6 +18,18 @@ ActiveRecord::Schema.define(version: 2020_08_29_173624) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_family_users_on_user_id"
+  end
+
+  create_table "shopping_list_items", force: :cascade do |t|
+    t.string "name"
+    t.integer "quantity"
+    t.string "comment"
+    t.integer "shopping_list_id", null: false
+    t.integer "family_user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["family_user_id"], name: "index_shopping_list_items_on_family_user_id"
+    t.index ["shopping_list_id"], name: "index_shopping_list_items_on_shopping_list_id"
   end
 
   create_table "shopping_lists", force: :cascade do |t|
@@ -34,4 +46,6 @@ ActiveRecord::Schema.define(version: 2020_08_29_173624) do
   end
 
   add_foreign_key "family_users", "users"
+  add_foreign_key "shopping_list_items", "family_users"
+  add_foreign_key "shopping_list_items", "shopping_lists"
 end
